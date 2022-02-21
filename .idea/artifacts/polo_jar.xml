@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="polo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/polo_jar</output-path>
+    <root id="root">
+      <element id="archive" name="polo.jar">
+        <element id="module-output" name="polo" />
+      </element>
+      <element id="library" level="project" name="lib" />
+      <element id="library" level="project" name="KotlinJavaRuntime" />
+    </root>
+  </artifact>
+</component>
