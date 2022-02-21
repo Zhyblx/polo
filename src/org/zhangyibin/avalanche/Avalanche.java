@@ -2,9 +2,7 @@ package org.zhangyibin.avalanche;
 
 import org.zhangyibin.maintenanceitem.EnterMaintenanceRecords;
 import org.zhangyibin.maintenanceitem.MaintenanceInformationQuery;
-import org.zhangyibin.service.PoloParameter;
-import org.zhangyibin.service.ProductEnum;
-import org.zhangyibin.service.Report;
+import org.zhangyibin.service.*;
 import org.zhangyibin.util.ImageUtil;
 import org.zhangyibin.util.StringConvertArray;
 
@@ -21,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -28,8 +27,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JCheckBox;
-
-import org.zhangyibin.service.QueryHistory;
 
 /**
  * Avalanche (雪崩 软件)
@@ -244,7 +241,7 @@ public class Avalanche {
         queryTextField = new JTextField();
         queryTextField.setBounds(50, 120, 480, 35);
         queryPanel.add(queryTextField);
-        queryTextField.setText("上次查询记录：" + queryHistory.getReadFile()); // 默认展示上次查询里程
+        queryTextField.setText(queryHistory.getReadFile()); // 默认展示上次查询里程
         queryTextField.setColumns(10);
 
         /*
@@ -301,8 +298,14 @@ public class Avalanche {
          */
         recentMileageJLabel = new JLabel();
         recentMileageJLabel.setFont(new Font("宋体", Font.PLAIN, 10));
-        recentMileageJLabel.setText("上次保养时间/里程数：" + recentTime + "/" + String.valueOf(recentMileageNumber));
-        recentMileageJLabel.setBounds(50, 420, 300, 15);
+        recentMileageJLabel.setText(
+                "上次保养时间：" + recentTime
+                        + "                                          "
+                        + "上次里程数：" + String.valueOf(recentMileageNumber)
+                        + "                                          "
+                        + "下次保养里程数：" + (recentMileageNumber + this.getEngineMileageRule())
+        );
+        recentMileageJLabel.setBounds(50, 420, 598, 15);
         queryPanel.add(recentMileageJLabel);
 
         /*
@@ -624,7 +627,7 @@ public class Avalanche {
         imageJLabel.setIcon(ImageUtil.getImageIcon("polo.png"));
         aboutPanel.add(imageJLabel);
 
-        JLabel authorLabel = new JLabel("张益斌自用工具(version:1.2)");
+        JLabel authorLabel = new JLabel("张益斌自用工具(version:1.4)");
         authorLabel.setBounds(220, 400, 300, 15);
         aboutPanel.add(authorLabel);
 
@@ -641,7 +644,7 @@ public class Avalanche {
      * 1.表头 2.表格内容
      */
 
-    private String[] tableHeader = {"产品信息", "是否保养", "超时天/里程数"};
+    private String[] tableHeader = {"产品信息", "是否保养", "超时天/里程数", "单位"};
     private String[][] tableArray = null;
 
 
@@ -654,6 +657,17 @@ public class Avalanche {
         // new String[][] { { "纽约", "50", "500.0" }, { "纽约", "10", "500.0" },
         // { "纽约", "10", "500.0" }, { "纽约", "40", "500.0" } };
         return this.tableArray;
+
+    }
+
+    /*
+     * 返回机油更换里程数
+     */
+    private int getEngineMileageRule() {
+        Map<String, Integer> mileageRuleMap = new HashMap<>();// 里程规则map
+        mileageRuleMap.putAll(Rule.getMileageProduct());
+        int mileageRule = mileageRuleMap.get(ProductEnum.机油.getProductEnum()); // 里程规则
+        return mileageRule;
 
     }
 }

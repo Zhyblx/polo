@@ -11,7 +11,7 @@ public class MaintenanceInformationQueryTest {
 
     public static void main(String[] args) throws Exception {
         System.out.println(
-                MaintenanceInformationQuery.getMaintenanceInformationQuery(113000).onMaintenanceInformationQuery());
+                MaintenanceInformationQuery.getMaintenanceInformationQuery(115666).onMaintenanceInformationQuery());
 
     }
 

@@ -1,8 +1,6 @@
+## 【Avalanche（雪崩）项目】
 
-
-## 【文档】
-
-Avalanche（雪崩）是一款用于汽车保养的记录与查询工具。
+一款用于汽油车保养的管理软件项目。
 
 ### Api
 
@@ -70,5 +68,14 @@ Avalanche（雪崩）是一款用于汽车保养的记录与查询工具。
 > · MaintenanceItemTest; <br>
 > · ReportTest; <br>
 > · StringConvertArrayTest; <br>
+> · QueryHistoryTest; <br>
+> · RuleTest; <br>
+
+
+
+
+
+
+
 
 
